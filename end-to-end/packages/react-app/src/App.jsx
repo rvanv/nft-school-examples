@@ -110,7 +110,6 @@ function App(props) {
   // If you want to make 🔐 write transactions to your contracts, use the userProvider:
   const writeContracts = useContractLoader(userProvider);
 
-
   /*
   const addressFromENS = useResolveName(mainnetProvider, "austingriffith.eth");
   console.log("🏷 Resolved austingriffith.eth as:",addressFromENS)
@@ -140,15 +139,7 @@ function App(props) {
       console.log("📝 readContracts", readContracts);
       console.log("🔐 writeContracts", writeContracts);
     }
-  }, [
-    mainnetProvider,
-    address,
-    selectedChainId,
-    yourLocalBalance,
-    yourMainnetBalance,
-    readContracts,
-    writeContracts,
-  ]);
+  }, [mainnetProvider, address, selectedChainId, yourLocalBalance, yourMainnetBalance, readContracts, writeContracts]);
 
   let networkDisplay = "";
   if (localChainId && selectedChainId && localChainId !== selectedChainId) {
@@ -239,7 +230,7 @@ function App(props) {
       {networkDisplay}
       <BrowserRouter>
         <Menu style={{ textAlign: "center" }} selectedKeys={[route]} mode="horizontal">
-        <Menu.Item key="/">
+          <Menu.Item key="/">
             <Link
               onClick={() => {
                 setRoute("/");
@@ -251,8 +242,13 @@ function App(props) {
           </Menu.Item>
           <Menu.Item key="/view">
             <Link
-              onClick={() => { setRoute("/view"); }}
-              to="/view">View an NFT</Link>
+              onClick={() => {
+                setRoute("/view");
+              }}
+              to="/view"
+            >
+              View an NFT
+            </Link>
           </Menu.Item>
           <Menu.Item key="/contract">
             <Link
@@ -268,7 +264,7 @@ function App(props) {
 
         <Switch>
           <Route exact path="/">
-          <Minter
+            <Minter
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}
@@ -277,11 +273,7 @@ function App(props) {
           </Route>
 
           <Route path="/view">
-              <NFTViewer
-                provider={localProvider}
-                address={address}
-                blockExplorer={blockExplorer}
-              />
+            <NFTViewer provider={localProvider} address={address} blockExplorer={blockExplorer} />
           </Route>
 
           <Route exact path="/contract">
@@ -313,8 +305,6 @@ function App(props) {
         />
         {faucetHint}
       </div>
-
-
     </div>
   );
 }
